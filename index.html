@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio Interactivo - Landing page con Bootstrap 5, transformaciones y animaciones CSS">
+    <title>Portafolio Interactivo</title>
+
+    <!-- Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="pantalla-carga">
+        <div class="loader-contenido">
+            <div class="spinner"></div>
+            <p class="texto-carga">Cargando...</p>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="#inicio">&#9889; MiPortafolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuPrincipal" aria-controls="menuPrincipal"
+                aria-expanded="false" aria-label="Mostrar menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="inicio" class="hero text-white">
+        <div class="formas" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-7">
+                    <p class="etiqueta">Desarrollador Web Junior</p>
+                    <h1 class="escribiendo">Hola, soy Erlan</h1>
+                    <p class="lead mt-3">Estudiante de Ingeniería de Sistemas e Informatica. Aquí presento mis proyectos web.</p>
+                    <a href="#proyectos" class="btn btn-warning btn-lg boton-hero">Ver proyectos</a>
+                </div>
+                <div class="col-sm-12 col-md-5 text-center mt-5 mt-md-0">
+                    <div class="circulo-pulso"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="sobre-mi" class="py-5">
+        <div class="container">
+            <h2 class="titulo-seccion text-center revelar">Sobre mí</h2>
+
+            <div class="grid-sobre-mi revelar">
+                <div class="perfil">
+                    <div class="avatar">E</div>
+                    <h5>Erlan Ubillus Cabellos</h5>
+                    <small>UTP - Ing. de Sistemas e Informatica</small>
+                </div>
+
+                <div class="texto-sobre-mi">
+                    <p>Me gusta mucho la creación de sitios web y programación. Estoy aprendiendo
+                    Bootstrap, SASS y animaciones CSS para mejorar mis interfaces.</p>
+
+                    <h6>Mis habilidades</h6>
+                    <div class="habilidad">
+                        <span>HTML5 / CSS3</span>
+                        <div class="barra"><div class="relleno" style="--nivel: 90%"></div></div>
+                    </div>
+                    <div class="habilidad">
+                        <span>Bootstrap 5</span>
+                        <div class="barra"><div class="relleno" style="--nivel: 80%"></div></div>
+                    </div>
+                    <div class="habilidad">
+                        <span>SASS</span>
+                        <div class="barra"><div class="relleno" style="--nivel: 65%"></div></div>
+                    </div>
+                </div>
+
+                <div class="estadisticas">
+                    <div class="dato"><strong>10+</strong><span>Proyectos</span></div>
+                    <div class="dato"><strong>3</strong><span>Frameworks</span></div>
+                    <div class="dato"><strong>2</strong><span>Años</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="py-5 fondo-claro">
+        <div class="container">
+            <h2 class="titulo-seccion text-center revelar">Mis Proyectos</h2>
+            <p class="text-center text-muted mb-4">Pasa el mouse sobre cada tarjeta</p>
+
+            <div class="row g-4 mb-5">
+                <div class="col-sm-12 col-md-4 revelar">
+                    <div class="caja caja-rotar">
+                        <div class="icono">&#128187;</div>
+                        <h5>Tienda Online</h5>
+                        <p>Hover: rotación con <code>rotate</code></p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 revelar">
+                    <div class="caja caja-escalar">
+                        <div class="icono">&#127912;</div>
+                        <h5>Portafolio</h5>
+                        <p>Hover: escalado con <code>scale</code></p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 revelar">
+                    <div class="caja caja-trasladar">
+                        <div class="icono">&#128241;</div>
+                        <h5>App Móvil</h5>
+                        <p>Hover: <code>translate</code> + <code>skew</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-center mb-4 revelar">Efectos 3D</h3>
+            <div class="row g-4 justify-content-center align-items-center">
+                <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+                    <div class="escena-3d">
+                        <div class="tarjeta-3d">
+                            <div class="cara cara-frontal">
+                                <h5>Mi Proyecto</h5>
+                                <p>Pasa el mouse</p>
+                            </div>
+                            <div class="cara cara-trasera">
+                                <h5>Detalles</h5>
+                                <p>Aplicación web hecha con Bootstrap, SASS y CSS puro.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+                    <div class="escena-cubo">
+                        <div class="cubo">
+                            <div class="lado frente">HTML</div>
+                            <div class="lado atras">CSS</div>
+                            <div class="lado derecha">SASS</div>
+                            <div class="lado izquierda">JS</div>
+                            <div class="lado arriba">UI</div>
+                            <div class="lado abajo">WEB</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contacto" class="py-5">
+        <div class="container">
+            <h2 class="titulo-seccion text-center revelar">Contacto</h2>
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-8 col-lg-6">
+                    <form class="revelar">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-enviar">
+                                <span class="spinner-boton"></span> Enviar
+                            </button>
+                            <button type="reset" class="btn btn-secondary">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <small>&copy; 2026 Portafolio Interactivo</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

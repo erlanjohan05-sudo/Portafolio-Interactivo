@@ -1,0 +1,535 @@
+@use "sass:math";
+
+$primario: #0d6efd;
+$oscuro:   #212529;
+$acento:   #ffc107;
+$morado:   #6f42c1;
+$naranja:  #fd7e14;
+$verde:    #198754;
+$rojo:     #dc3545;
+$claro:    #f4f6fb;
+$radio:    14px;
+
+@mixin centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin transicion($propiedad: all, $tiempo: 0.5s) {
+    -webkit-transition: $propiedad $tiempo ease;
+    transition: $propiedad $tiempo ease;
+}
+
+@mixin transformar($valor) {
+    -webkit-transform: $valor;
+    transform: $valor;
+}
+
+@mixin animar($valor...) {
+    -webkit-animation: $valor;
+    animation: $valor;
+}
+
+@mixin keyframes($nombre) {
+    @-webkit-keyframes #{$nombre} { @content; }
+    @keyframes #{$nombre} { @content; }
+}
+
+// Media query
+@mixin pantalla($ancho) {
+    @media (max-width: $ancho) { @content; }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    padding-top: 56px;
+    overflow-x: hidden;
+}
+
+section[id],
+header[id] {
+    scroll-margin-top: 56px;
+}
+
+.fondo-claro {
+    background-color: $claro;
+}
+
+.titulo-seccion {
+    font-size: clamp(1.6rem, 4vw, 2.4rem); 
+    margin-bottom: 2rem;
+    font-weight: 700;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 4px;
+        margin: 10px auto 0;
+        background-color: $primario;
+        border-radius: 2px;
+    }
+}
+
+.pantalla-carga {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $oscuro;
+    z-index: 9999;
+    @include centrar;
+    @include animar(ocultar-carga 0.6s ease 2s forwards);
+}
+
+.loader-contenido {
+    text-align: center;
+    color: #fff;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    border: 6px solid rgba(255, 255, 255, 0.25);
+    border-top-color: $acento;
+    border-radius: 50%;
+    @include animar(girar 1s linear infinite);
+}
+
+.texto-carga {
+    @include animar(parpadeo 1s ease-in-out infinite alternate);
+}
+
+.spinner-boton {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    vertical-align: middle;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    @include animar(girar 0.8s linear infinite);
+}
+
+@include keyframes(girar) {
+    from { @include transformar(rotate(0deg)); }
+    to   { @include transformar(rotate(360deg)); }
+}
+
+@include keyframes(ocultar-carga) {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@include keyframes(parpadeo) {
+    from { opacity: 0.3; }
+    to   { opacity: 1; }
+}
+
+.hero {
+    position: relative;
+    min-height: calc(100vh - 56px);
+    overflow: hidden;
+    @include centrar;
+    background: linear-gradient(135deg, $primario, $morado, #0a58ca);
+    background-size: 200% 200%;
+    @include animar(gradiente 8s ease infinite);
+
+    .container {
+        z-index: 1;
+    }
+}
+
+.etiqueta {
+    display: table;          
+    margin-bottom: 0.75rem;
+    padding: 4px 14px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+}
+
+.escribiendo {
+    display: inline-block;
+    max-width: 100%;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid $acento;
+    font-size: clamp(1.8rem, 7vw, 3.5rem);
+    font-weight: 700;
+    // animation-delay de 2.5s para esperar al loader
+    @include animar(escribir 2.5s steps(13) 2.5s forwards, cursor 0.8s step-end infinite);
+}
+
+@include keyframes(escribir) {
+    from { width: 0; }
+    to   { width: 13ch; }
+}
+
+@include keyframes(cursor) {
+    50% { border-color: transparent; }
+}
+
+@include keyframes(gradiente) {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.boton-hero {
+    margin-top: 1rem;
+    @include transicion(transform, 0.3s);
+
+    &:hover {
+        @include transformar(translateY(-4px) scale(1.05));
+    }
+}
+
+.circulo-pulso {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: $acento;
+    @include animar(pulso 3s ease-in-out infinite alternate);
+}
+
+@include keyframes(pulso) {
+    0%   { @include transformar(scale(1));   background-color: $acento; }
+    50%  { @include transformar(scale(1.3)); background-color: $rojo; }
+    100% { @include transformar(scale(0.8)); background-color: $verde; }
+}
+
+.formas span {
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    @include animar(flotar 6s ease-in-out infinite alternate);
+
+    &:nth-child(1) { top: 15%; left: 8%; }
+    &:nth-child(2) { top: 65%; left: 20%; width: 40px; height: 40px; animation-delay: 1s; }
+    &:nth-child(3) { top: 20%; right: 12%; width: 90px; height: 90px; border-radius: 50%; animation-delay: 2s; }
+    &:nth-child(4) { bottom: 10%; right: 25%; animation-delay: 3s; }
+}
+
+@include keyframes(flotar) {
+    from { @include transformar(translateY(0) rotate(0deg)); }
+    to   { @include transformar(translateY(-40px) rotate(45deg)); }
+}
+
+.grid-sobre-mi {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+        "perfil texto"
+        "perfil stats";
+    gap: 1.5rem 2rem;
+    align-items: start;
+}
+
+.perfil {
+    grid-area: perfil;
+    text-align: center;
+    padding: 2rem 1rem;
+    border-radius: $radio;
+    background-color: $claro;
+}
+
+.avatar {
+    @include centrar;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primario, $morado);
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.texto-sobre-mi {
+    grid-area: texto;
+}
+
+.estadisticas {
+    grid-area: stats;
+    display: flex;           
+    justify-content: space-between;
+    gap: 1rem;
+
+    .dato {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        border-radius: $radio;
+        background-color: $claro;
+
+        strong {
+            font-size: 1.8rem;
+            color: $primario;
+        }
+    }
+}
+
+.habilidad {
+    margin-bottom: 0.8rem;
+}
+
+.barra {
+    height: 10px;
+    border-radius: 5px;
+    background-color: #dee2e6;
+    overflow: hidden;
+}
+
+.relleno {
+    width: var(--nivel);
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(90deg, $primario, $morado);
+}
+
+@include keyframes(llenar) {
+    from { width: 0; }
+    to   { width: var(--nivel); }
+}
+
+.caja {
+    padding: 2rem 1.5rem;
+    border-radius: $radio;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    @include transicion(all, 0.5s);
+
+    .icono {
+        font-size: 2.5rem;
+        @include transicion(transform, 0.5s);
+    }
+
+    &:hover {
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.caja-rotar {
+    background-color: $primario;
+
+    &:hover {
+        @include transformar(rotate(8deg));
+    }
+}
+
+.caja-escalar {
+    background-color: $verde;
+
+    &:hover {
+        @include transformar(scale(1.1));
+    }
+}
+
+.caja-trasladar {
+    background-color: $rojo;
+
+    &:hover {
+        @include transformar(translateY(-15px) skew(-5deg));
+    }
+}
+
+.caja code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+// El icono también se mueve al hacer hover en la caja
+.caja:hover .icono {
+    @include transformar(scale(1.3) rotate(-10deg));
+}
+
+.escena-3d {
+    width: 100%;
+    max-width: 280px;
+    height: 220px;
+    perspective: 800px;
+    -webkit-perspective: 800px;
+}
+
+.tarjeta-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    @include transicion(transform, 0.8s);
+}
+
+.escena-3d:hover .tarjeta-3d {
+    @include transformar(rotateX(15deg) rotateY(180deg));
+}
+
+.cara {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    border-radius: $radio;
+    color: #fff;
+    text-align: center;
+    flex-direction: column;
+    @include centrar;
+    flex-direction: column;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.cara-frontal {
+    background: linear-gradient(135deg, $morado, $primario);
+}
+
+.cara-trasera {
+    background: linear-gradient(135deg, $naranja, $rojo);
+    @include transformar(rotateY(180deg));
+}
+
+
+$lado-cubo: 140px;
+
+.escena-cubo {
+    width: $lado-cubo;
+    height: $lado-cubo;
+    perspective: 700px;
+    -webkit-perspective: 700px;
+}
+
+.cubo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    @include animar(girar-cubo 12s linear infinite);
+
+    &:hover {
+        animation-play-state: paused; // control de animación
+    }
+}
+
+.lado {
+    position: absolute;
+    width: $lado-cubo;
+    height: $lado-cubo;
+    @include centrar;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.frente    { background-color: $primario; @include transformar(rotateY(0deg)   translateZ(math.div($lado-cubo, 2))); }
+.atras     { background-color: $verde;    @include transformar(rotateY(180deg) translateZ(math.div($lado-cubo, 2))); }
+.derecha   { background-color: $rojo;     @include transformar(rotateY(90deg)  translateZ(math.div($lado-cubo, 2))); }
+.izquierda { background-color: $naranja;  @include transformar(rotateY(-90deg) translateZ(math.div($lado-cubo, 2))); }
+.arriba    { background-color: $morado;   @include transformar(rotateX(90deg)  translateZ(math.div($lado-cubo, 2))); }
+.abajo     { background-color: $oscuro;   @include transformar(rotateX(-90deg) translateZ(math.div($lado-cubo, 2))); }
+
+@include keyframes(girar-cubo) {
+    from { @include transformar(rotateX(-20deg) rotateY(0deg)); }
+    to   { @include transformar(rotateX(340deg) rotateY(360deg)); }
+}
+
+.form-control {
+    @include transicion(all, 0.3s);
+
+    &:focus {
+        @include transformar(scale(1.02));
+    }
+}
+
+.btn-enviar {
+    @include transicion(transform, 0.3s);
+
+    &:hover {
+        @include transformar(translateY(-2px));
+    }
+}
+
+@supports (animation-timeline: view()) {
+    .revelar {
+        animation: aparecer linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+    }
+
+    .relleno {
+        animation: llenar linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 90%;
+    }
+}
+
+@include keyframes(aparecer) {
+    from {
+        opacity: 0;
+        @include transformar(translateY(40px));
+    }
+    to {
+        opacity: 1;
+        @include transformar(translateY(0));
+    }
+}
+
+@include pantalla(992px) {
+    .grid-sobre-mi {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "perfil"
+            "texto"
+            "stats";
+    }
+}
+
+@include pantalla(576px) {
+    .hero {
+        text-align: center;
+    }
+
+    .etiqueta {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .estadisticas {
+        flex-direction: column;
+    }
+
+    .circulo-pulso {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .formas span,
+    .circulo-pulso,
+    .cubo {
+        animation: none;
+    }
+}
